@@ -1,3 +1,4 @@
+Transform: AWS::Serverless-2016-10-31
 Resources:
   WeddingRSVPsTable:
     Type: AWS::DynamoDB::Table
@@ -13,3 +14,20 @@ Resources:
       Tags:
       - Key: Name
         Value: WeddingRSVP
+  WeddingRSVPFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/lambda.handler
+      Runtime: nodejs16.x
+      CodeUri: ../../
+      Events:
+        GetRSVP:
+          Type: Api
+          Properties:
+            Path: /rsvp
+            Method: get
+        PostRSVP:
+          Type: Api
+          Properties:
+            Path: /rsvp
+            Method: post

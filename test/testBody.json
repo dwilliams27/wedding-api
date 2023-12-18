@@ -1,0 +1,21 @@
+{
+  "rsvp": {
+    "id": "24181267-5075-4519-beb1-5e6073075e19",
+    "guests": [
+      {
+        "name": "Jimmy McGill",
+        "foodPreference": "Steak",
+        "allergies": [],
+        "attending": true
+      },
+      {
+        "name": "Kim Wexler",
+        "foodPreference": "Chicken",
+        "allergies": [],
+        "attending": true
+      }
+    ],
+    "uid": "24181267-5075-4519-beb1-5e6073075e19",
+    "idFromQRCode": "24181267-5075-4519-beb1-5e6073075e19"
+  }
+}

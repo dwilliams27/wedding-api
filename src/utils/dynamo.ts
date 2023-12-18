@@ -3,6 +3,8 @@ import { LambdaClient } from '@aws-sdk/client-lambda';
 import { DynamoDBDocumentClient, GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 import { RSVP } from '../models/models';
 
+const TABLE = 'WeddingRSVP';
+
 export class DynamoDBService {
   private dynamoDb: DynamoDBDocumentClient;
 
@@ -42,28 +44,40 @@ export class DynamoDBService {
     }
   }
 
-  private mapRSVP(data: any): RSVP {
-    return {
-      uid: data.Item.uid.S,
-      id: data.Item.id.S,
-      idFromQRCode: data.Item.idFromQRCode ? data.Item.idFromQRCode.S : undefined,
-      guests: data.Item.guests.L.map((guest: any) => {
-        return {
-          attending: guest.M.attending.BOOL,
-          name: guest.M.name.S,
-          foodPreference: guest.M.foodPreference.S,
-          allergies: guest.M.allergies.SS,
-          additionalNotes: guest.M.additionalNotes ? guest.M.additionalNotes.S : undefined
-        };
-      })
-    };
+  private mapRSVP(data: any): RSVP | null {
+    if(!data) {
+      return null;
+    }
+
+    let rsvp: RSVP | null = null;
+    try {
+      rsvp = {
+        uid: data.uid,
+        id: data.id,
+        idFromQRCode: data.idFromQRCode ? data.idFromQRCode : undefined,
+        guests: data.guests.map((guest: any) => {
+          return {
+            attending: guest.attending,
+            name: guest.name,
+            foodPreference: guest.foodPreference,
+            allergies: guest.allergies,
+            additionalNotes: guest.additionalNotes ? guest.additionalNotes : undefined
+          };
+        })
+      }
+    } catch (error) {
+      console.error("Error mapping RSVP:", error);
+      return null;
+    }
+    return rsvp;
   }
 
-  public async getRSVP(uid: string): Promise<RSVP> {
-    return this.mapRSVP(await this.get('rsvp', { uid }));
+  public async getRSVP(uid: string): Promise<RSVP | null> {
+    const rsvp = this.mapRSVP(await this.get(TABLE, { id: uid }));
+    return rsvp;
   }
 
   public async putRSVP(rsvp: RSVP) {
-    return await this.put('rsvp', rsvp);
+    return await this.put(TABLE, rsvp);
   }
 }

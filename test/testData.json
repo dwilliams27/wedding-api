@@ -1,0 +1,25 @@
+{
+  "id": {"S": "0757e739-076a-4e2f-94b6-571fc522097f"},
+  "uid": {"S": "0757e739-076a-4e2f-94b6-571fc522097f"},
+  "idFromQRCode": {"S": "0757e739-076a-4e2f-94b6-571fc522097f"},
+  "guests": {
+      "L": [
+          {
+          "M": {
+            "attending": {"BOOL": true},
+            "name": {"S": "John Doe"},
+            "foodPreference": {"S": "Vegetarian"},
+            "allergies": {"L": [{"S": "Nuts"}]},
+            "additionalNotes": {"S": "Gluten-free request"}
+          }},
+          {
+          "M": {
+            "attending": {"BOOL": true},
+            "name": {"S": "Jane Doe"},
+            "foodPreference": {"S": "Carnivore"},
+            "allergies": {"L": [{"S": "Tree Nuts"}]},
+            "additionalNotes": {"S": "Gluten-free demand"}
+          }}
+      ]
+  }
+}
