@@ -30,6 +30,7 @@ export class DynamoDBService {
   }
 
   public async put(table: string, item: object) {
+    console.log("Writing to DynamoDB:", item);
     const params = {
       TableName: table,
       Item: item

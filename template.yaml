@@ -19,7 +19,7 @@ Resources:
     Properties:
       Handler: dist/lambda.handler
       Runtime: nodejs18.x
-      CodeUri: WeddingRSVPFunction
+      CodeUri: ./
       Events:
         GetRSVP:
           Type: Api
@@ -31,5 +31,3 @@ Resources:
           Properties:
             Path: /rsvp
             Method: post
-    Metadata:
-      SamResourceId: WeddingRSVPFunction
